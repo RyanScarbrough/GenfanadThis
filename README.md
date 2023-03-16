@@ -7,3 +7,6 @@ GenfanadThis is a Chrome extension that uses Chrome's debugger API to create a d
 
 ### Step 1
 ![step 1](https://gcdnb.pbrd.co/images/qbh7KmTwVGCJ.png)
+
+### Step 2
+![step 2](https://gcdnb.pbrd.co/images/ImcOxRaryWFB.png)
