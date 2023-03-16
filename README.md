@@ -25,7 +25,7 @@ Chrome extensions get access to the chrome.debugger API, which serves as an alte
 
 3) The client.js source code is then retrieved and we look through the code for an ideal breakpoint (preferably at the very end of the IIFE)
 
-4) The breakpoint is set in the debugger, and it is immediately hits after client.js executes.
+4) The breakpoint is set in the debugger, and it immediately hits after client.js executes.
 
 5) The debugger pauses at the breakpoint and we catch the event, then we retrieve the current JavaScript callstack, and call a function on the callstack that runs "document.this = this".
 
