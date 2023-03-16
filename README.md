@@ -23,7 +23,7 @@ Chrome extensions get access to the chrome.debugger API, which serves as an alte
 
 2) The debugger is enabled and we listen for when "https://play.genfanad.com/play/js/client.js" is parsed.
 
-3) The client.js source code is then retrieved and we look through the code to find an ideal breakpoint (preferably at the very end of the IIFE)
+3) The client.js source code is then retrieved and we look through the code for an ideal breakpoint (preferably at the very end of the IIFE)
 
 4) The breakpoint is set in the debugger, and it is immediately hits after client.js executes.
 
