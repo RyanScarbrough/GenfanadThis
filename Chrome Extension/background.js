@@ -29,7 +29,7 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
       function handleEvent(debuggeeId, message, params) {
         // If client.js was just parsed
         if (message == 'Debugger.scriptParsed' && debuggeeId.tabId == genTabId
-        && params.url == "https://play.genfanad.com/play/js/client.js") {
+        && params.url.includes("client.js")) {
 
             console.log("FOUND CLIENT.JS:")
             console.log(params)
@@ -47,16 +47,19 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
               let scriptSource = script.scriptSource
               
               // get the index of the end of the IIFE, ideal breakpoint location
-              let IIFECallIndex = scriptSource.lastIndexOf(")();")
+              let IIFECallIndex = scriptSource.lastIndexOf("})();")
+
+              console.log("IDEAL BREAKPOINT FOUND (END OF IIFE):")
+              console.log(scriptSource.slice(IIFECallIndex))
 
               // create breakpoint location
               let idealLocation = {
-                columnNumber: IIFECallIndex - 1, // columnNumber is zero-indexed
+                columnNumber: IIFECallIndex,
                 lineNumber: 0,
                 scriptId: scriptId
               }
 
-              console.log("FOUND IDEAL BREAKPOINT LOCATION (END OF IIFE):")
+              console.log("BREAKPOINT LOCATION CREATED:")
               console.log(idealLocation)
 
               // set a breakpoint at the ideal location
