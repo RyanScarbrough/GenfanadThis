@@ -35,4 +35,4 @@ Chrome extensions get access to the chrome.debugger API, which serves as an alte
 
 Chrome's remote debugging protocol can be used to access Genfanad IIFE variables _without_ modyfing any code.
 
-An instance of Chrome could be ran with "--remote-debugging-port=9222 --user-data-dir=remote-profile" to enable remote debugging. Then plugins such as [GenLite](https://github.com/Retoxified/GenLite) could access the debugger remotely and create a global Genfanad _this_ variable, without modyfing any of Genfanad's code.
+An instance of Chrome could be ran with "--remote-debugging-port=9222 --user-data-dir=remote-profile" to enable remote debugging. Then plugins such as [GenLite](https://github.com/Retoxified/GenLite) could access the debugger remotely and use it to create a global Genfanad _this_ variable, without modyfing any of Genfanad's code.
