@@ -30,3 +30,9 @@ Chrome extensions get access to the chrome.debugger API, which serves as an alte
 5) The debugger pauses at the breakpoint and we catch the event, then we retrieve the current JavaScript callstack, and call a function on the callstack that runs "document.this = this".
 
 6) Afterwards, the debugger is disabled and detached along with the eventlistener.
+
+## Implications
+
+Chrome's remote debugging protocol can be used to access Genfanad variables _without_ modyfing any code.
+
+An instance of Chrome could be ran with "--remote-debugging-port=9222 --user-data-dir=remote-profile" to enable remote debugging. Then plugins such as [GenLite](https://github.com/Retoxified/GenLite) could access the debugger remotely and create a global Genfanad _this_ variable, without modyfing any of Genfanad's code.
