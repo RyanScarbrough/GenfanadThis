@@ -119,7 +119,7 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
           // Call a custom function on call stack
           chrome.debugger.sendCommand({tabId: genTabId}, 'Runtime.callFunctionOn', {
             objectId: params.callFrames[0].scopeChain[0].object.objectId,
-            functionDeclaration: 'function() { document.this = this; return this; }',
+            functionDeclaration: 'function() { document.this = this; }',
             returnByValue: false
           }, function(result) {
             console.log("CREATED DOCUMENT.THIS WITHIN CALLFRAME")
