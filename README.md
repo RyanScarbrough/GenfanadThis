@@ -15,7 +15,7 @@ GenfanadThis is a Chrome extension that uses Chrome's debugger API to create a d
 ![Step 3](https://gcdnb.pbrd.co/images/eRJbODV6oJfB.png)
 
 ## About
-Chrome extensions get access to the chrome.debugger API, which serves as an alternate transport for Chrome's remote debugging protocol. We can use this API to attach a debugger and send commands to it. We then use the debugger to create a breakpoint and call a function on the callstack where the breakpoint gets hit.
+Chrome extensions get access to the chrome.debugger API, which "serves as an alternate transport for Chrome's remote debugging protocol." We can use this API to attach a debugger and send commands to it. We then use the debugger to create a breakpoint and call a function on the callstack where the breakpoint gets hit.
 
 **How it works:**
 
