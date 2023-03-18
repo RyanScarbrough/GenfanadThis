@@ -15,7 +15,7 @@ GenfanadThis is a Chrome extension that uses [Chrome's debugger API](https://dev
 ![Step 3](https://gcdnb.pbrd.co/images/eRJbODV6oJfB.png)
 
 ## About
-Chrome extensions get access to the chrome.debugger API, which "serves as an alternate transport for Chrome's remote debugging protocol." We can use this API to attach a debugger and send commands to it. We then use the debugger to create a breakpoint and call a function on the callstack where the breakpoint gets hit.
+Chrome extensions get access to the chrome.debugger API, which "serves as an alternate transport for Chrome's [remote debugging protocol](https://chromedevtools.github.io/devtools-protocol/)." We can use this API to attach a debugger and send commands to it. We then use the debugger to create a breakpoint and call a function on the callstack where the breakpoint gets hit.
 
 **How it works:**
 
@@ -33,6 +33,6 @@ Chrome extensions get access to the chrome.debugger API, which "serves as an alt
 
 ## Implications
 
-Chrome's remote debugging [protocol](https://chromedevtools.github.io/devtools-protocol/) can be used to get access to Genfanad IIFE variables _without_ modifying any code.
+Chrome's remote debugging protocol can be used to get access to Genfanad IIFE variables _without_ modifying any code.
 
 An instance of Chrome could be ran with "--remote-debugging-port=9222 --user-data-dir=remote-profile" to enable remote debugging. Then plugins such as [GenLite](https://github.com/Retoxified/GenLite) could access the debugger remotely and use it to create a global Genfanad _this_ variable, without modifying any of Genfanad's code.
