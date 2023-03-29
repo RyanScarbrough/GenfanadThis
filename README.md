@@ -3,17 +3,6 @@ GenfanadThis is a Chrome extension that uses [Chrome's debugger API](https://dev
 
 ![screenshot](https://gcdnb.pbrd.co/images/2rcMLy9R9xtt.png)
 
-## How to install
-
-### Step 1
-![Step 1](https://gcdnb.pbrd.co/images/qbh7KmTwVGCJ.png)
-
-### Step 2
-![Step 2](https://gcdnb.pbrd.co/images/ImcOxRaryWFB.png)
-
-### Step 3
-![Step 3](https://gcdnb.pbrd.co/images/eRJbODV6oJfB.png)
-
 ## About
 Chrome extensions get access to the chrome.debugger API, which "serves as an alternate transport for Chrome's [remote debugging protocol](https://chromedevtools.github.io/devtools-protocol/)." We can use this API to attach a debugger and send commands to it. We then use the debugger to create a breakpoint and call a function on the callstack where the breakpoint gets hit.
 
@@ -30,6 +19,17 @@ Chrome extensions get access to the chrome.debugger API, which "serves as an alt
 5) The debugger pauses at the breakpoint and we catch the event, then we retrieve the current JavaScript callstack, and call a function on the callstack that runs "window.genfanad = this".
 
 6) Afterwards, the debugger is disabled and detached along with the eventlistener.
+
+## How to install
+
+### Step 1
+![Step 1](https://gcdnb.pbrd.co/images/qbh7KmTwVGCJ.png)
+
+### Step 2
+![Step 2](https://gcdnb.pbrd.co/images/ImcOxRaryWFB.png)
+
+### Step 3
+![Step 3](https://gcdnb.pbrd.co/images/eRJbODV6oJfB.png)
 
 ## Implications
 
