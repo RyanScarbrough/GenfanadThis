@@ -1,7 +1,7 @@
 # GenfanadThis
 GenfanadThis is a Chrome extension that uses [Chrome's debugger API](https://developer.chrome.com/docs/extensions/reference/debugger/) to create a global 'genfanad' variable to access Genfanad's IIFE variables, without modifying any of its code.
 
-![screenshot](https://gcdnb.pbrd.co/images/2rcMLy9R9xtt.png)
+![screenshot](https://gcdnb.pbrd.co/images/z6qYwlNWubgU.png)
 
 ## About
 Chrome extensions get access to the chrome.debugger API, which "serves as an alternate transport for Chrome's [remote debugging protocol](https://chromedevtools.github.io/devtools-protocol/)." We can use this API to attach a debugger and send commands to it. We then use the debugger to create a breakpoint and call a function on the callstack where the breakpoint gets hit.
