@@ -1,7 +1,7 @@
 # GenfanadThis
-GenfanadThis is a Chrome extension that uses [Chrome's debugger API](https://developer.chrome.com/docs/extensions/reference/debugger/) to create a document.this variable to access Genfanad's IIFE variables, without modifying any of its code.
+GenfanadThis is a Chrome extension that uses [Chrome's debugger API](https://developer.chrome.com/docs/extensions/reference/debugger/) to create a global 'genfanad' variable to access Genfanad's IIFE variables, without modifying any of its code.
 
-![screenshot](https://gcdnb.pbrd.co/images/XRl78ITVcoPh.png)
+![screenshot](https://gcdnb.pbrd.co/images/2rcMLy9R9xtt.png)
 
 ## How to install
 
@@ -27,12 +27,12 @@ Chrome extensions get access to the chrome.debugger API, which "serves as an alt
 
 4) The breakpoint is set in the debugger, and it immediately hits after client.js executes.
 
-5) The debugger pauses at the breakpoint and we catch the event, then we retrieve the current JavaScript callstack, and call a function on the callstack that runs "document.this = this".
+5) The debugger pauses at the breakpoint and we catch the event, then we retrieve the current JavaScript callstack, and call a function on the callstack that runs "window.genfanad = this".
 
 6) Afterwards, the debugger is disabled and detached along with the eventlistener.
 
 ## Implications
 
-Chrome's remote debugging protocol can be used to get access to Genfanad IIFE variables _without_ modifying any code.
+Chrome's remote debugging protocol can be used to get access to Genfanad IIFE variables.
 
-An instance of Chrome could be ran with "--remote-debugging-port=9222 --user-data-dir=remote-profile" to enable remote debugging. Then plugins such as [GenLite](https://github.com/Retoxified/GenLite) could access the debugger remotely and use it to create a global Genfanad _this_ variable, without modifying any of Genfanad's code.
+An instance of Chrome could be ran with "--remote-debugging-port=9222 --user-data-dir=remote-profile" to enable remote debugging. Then almost any program could access the debugger remotely and use it to create a global Genfanad _this_ variable if needed.
