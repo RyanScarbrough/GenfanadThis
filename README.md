@@ -16,7 +16,7 @@ Chrome extensions get access to the chrome.debugger API, which "serves as an alt
 
 4) The breakpoint is set in the debugger, and it immediately hits after client.js executes.
 
-5) The debugger pauses at the breakpoint and we catch the event, then we retrieve the current JavaScript callstack, and call a function on the callstack that runs "window.genfanad = this".
+5) The debugger pauses when the breakpoint hits and we catch the event, then we retrieve the current JavaScript callstack, and call a function on the callstack that runs "window.genfanad = this".
 
 6) Afterwards, the debugger is disabled and detached along with the eventlistener.
 
