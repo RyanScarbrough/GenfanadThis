@@ -20,7 +20,7 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
     The chrome.debugger API serves as an alternate transport for Chrome's remote debugging protocol.
     */
 
-    // Attach the debugger to
+    // Attach the debugger to Genfanad tab
     chrome.debugger.attach({tabId: genTabId}, '1.0', function() {
       console.log("Debugger attached")
 
@@ -120,8 +120,10 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
         // Else if debugger was paused, then the breakpoint was hit
         else if(message == 'Debugger.paused') {
           let breakpointId = params.hitBreakpoints[0]
+          
           console.log("Breakpoint hit:")
           console.log(breakpointId)
+
           console.log("IIFE Call frame OBJECT ID:")
           console.log(params.callFrames[0].scopeChain[0].object.objectId)
           
