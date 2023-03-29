@@ -1,7 +1,7 @@
 # GenfanadThis
 GenfanadThis is a Chrome extension that uses [Chrome's debugger API](https://developer.chrome.com/docs/extensions/reference/debugger/) to create a document.this variable to access Genfanad's IIFE variables, without modifying any of its code.
 
-![screenshot](https://gcdnb.pbrd.co/images/XRl78ITVcoPh.png)
+![screenshot](https://gcdnb.pbrd.co/images/2rcMLy9R9xtt.png)
 
 ## How to install
 
