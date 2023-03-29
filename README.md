@@ -23,7 +23,7 @@ Chrome extensions get access to the chrome.debugger API, which "serves as an alt
 
 2) The debugger is enabled and we listen for when "client.js" is parsed.
 
-3) The client.js source code is then retrieved and we look through the code for an ideal breakpoint (preferably at the very end of the IIFE)
+3) We then get possible breakpoints and find the most ideal breakpoint location (preferably at the very end of the IIFE)
 
 4) The breakpoint is set in the debugger, and it immediately hits after client.js executes.
 
