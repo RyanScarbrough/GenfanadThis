@@ -1,5 +1,5 @@
 # GenfanadThis
-GenfanadThis is a Chrome extension that uses [Chrome's debugger API](https://developer.chrome.com/docs/extensions/reference/debugger/) to create a global genfanad variable to access Genfanad's IIFE variables, without modifying any of its code.
+GenfanadThis is a Chrome extension that uses [Chrome's debugger API](https://developer.chrome.com/docs/extensions/reference/debugger/) to create a global 'genfanad' variable to access Genfanad's IIFE variables, without modifying any of its code.
 
 ![screenshot](https://gcdnb.pbrd.co/images/2rcMLy9R9xtt.png)
 
