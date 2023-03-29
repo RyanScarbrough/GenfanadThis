@@ -5,6 +5,7 @@ Fired when a navigation is committed.
 At least part of the new document has been received from the server
 and the browser has decided to switch to the new document.
 */
+
 chrome.webNavigation.onCommitted.addListener(function(details) {
   // Check for when browser is navigating Genfanad play URL
   if (details.url.startsWith("https://play.genfanad.com/play")) {
@@ -12,6 +13,8 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
 
     // get Genfanad tab Id
     let genTabId = details.tabId
+
+    console.log("Genfanad found: tabId " + genTabId)
     
     /*
     The chrome.debugger API serves as an alternate transport for Chrome's remote debugging protocol.
@@ -30,7 +33,7 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
 
         // If client.js was just parsed
         if (message == 'Debugger.scriptParsed' && debuggeeId.tabId == genTabId
-        && params.url.includes("client.js")) {
+            && params.url.includes("client.js")) {
 
             console.log("Found client.js:")
             console.log(params)
@@ -114,8 +117,8 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
             */
         }
 
-        // If debugger was paused, then the breakpoint was hit
-        if(message == 'Debugger.paused') {
+        // Else if debugger was paused, then the breakpoint was hit
+        else if(message == 'Debugger.paused') {
           let breakpointId = params.hitBreakpoints[0]
           console.log("Breakpoint hit:")
           console.log(breakpointId)
@@ -125,10 +128,10 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
           // Call a custom function on call stack
           chrome.debugger.sendCommand({tabId: genTabId}, 'Runtime.callFunctionOn', {
             objectId: params.callFrames[0].scopeChain[0].object.objectId,
-            functionDeclaration: 'function() { document.this = this; }',
+            functionDeclaration: 'function() { window.genfanad = this; }',
             returnByValue: false
           }, function(result) {
-            console.log("Created document.this within callframe")
+            console.log("Created window.genfanad within callframe")
 
             // Resume debugger
             chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.resume', {}, function(result) {
@@ -152,14 +155,15 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
                     chrome.debugger.onEvent.removeListener(handleEvent);
                     console.log("Event handler removed")
 
-                    console.log("Finished!")
+                    console.log("Finished debugging!")
+
                   });
                 });
               });
             });
           });
         }
-        
+
       }
 
       chrome.debugger.onEvent.addListener(handleEvent)
