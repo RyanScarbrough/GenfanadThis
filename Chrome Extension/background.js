@@ -51,15 +51,15 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
             }, function(result) {
 
               // get second last possible breakpoint
-              let lastPossibleBreakpoint = result.locations[result.locations.length-2]
+              let secondLastPossibleBreakpoint = result.locations[result.locations.length-2]
 
               console.log("Breakpoints found:")
               console.log(result.locations)
 
               // subtract columnNumber by 2 to get ideal breakpoint location
               let idealLocation = {
-                columnNumber: lastPossibleBreakpoint.columnNumber - 2,
-                lineNumber: lastPossibleBreakpoint.lineNumber,
+                columnNumber: secondLastPossibleBreakpoint.columnNumber - 2,
+                lineNumber: secondLastPossibleBreakpoint.lineNumber,
                 scriptId: scriptId
               }
 
