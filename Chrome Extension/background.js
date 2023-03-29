@@ -19,23 +19,62 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
 
     // Attach the debugger to
     chrome.debugger.attach({tabId: genTabId}, '1.0', function() {
-      console.log("DEBUGER ATTACHED")
+      console.log("Debugger attached")
 
       // Send command to debugger to enable
       chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.enable', {}, function(result) {
-        console.log("DEBUGER ENABLED")
+        console.log("Debugger enabled")
       });
 
       function handleEvent(debuggeeId, message, params) {
+
         // If client.js was just parsed
         if (message == 'Debugger.scriptParsed' && debuggeeId.tabId == genTabId
         && params.url.includes("client.js")) {
 
-            console.log("FOUND CLIENT.JS:")
+            console.log("Found client.js:")
             console.log(params)
 
             // get client.js scriptId
             let scriptId = params.scriptId
+
+            // get possible debugger breakpoints
+            chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.getPossibleBreakpoints', {
+              start: {
+                scriptId: scriptId,
+                lineNumber: 0
+              },
+              restrictToFunction: true
+            }, function(result) {
+
+              // get second last possible breakpoint
+              let lastPossibleBreakpoint = result.locations[result.locations.length-2]
+
+              console.log("Breakpoints found:")
+              console.log(result.locations)
+
+              // subtract columnNumber by 2 to get ideal breakpoint location
+              let idealLocation = {
+                columnNumber: lastPossibleBreakpoint.columnNumber - 2,
+                lineNumber: lastPossibleBreakpoint.lineNumber,
+                scriptId: scriptId
+              }
+
+              console.log("Ideal breakpoint (end of IIFE):")
+              console.log(idealLocation)
+
+              // set breakpoint at ideal location
+              chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.setBreakpoint', {
+                location: idealLocation
+              }, function(result) {
+                console.log("Breakpoint set!")
+                console.log(result)
+              })
+            })
+
+            /*
+
+            Alternate method to find a breakpoint using lastIndexOf:
 
             // get client.js source code
             chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.getScriptSource', {
@@ -72,48 +111,15 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
 
             });
 
-            /*
-
-            Alternative method to get breakpoint location:
-
-            // get possible debugger breakpoints
-            chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.getPossibleBreakpoints', {
-              start: {
-                scriptId: scriptId,
-                lineNumber: 0
-              },
-              restrictToFunction: true
-            }, function(result) {
-
-              // get last possible breakpoint
-              let lastPossibleBreakpoint = result.locations[result.locations.length-1]
-
-              // subtract columnNumber by 5 to get ideal breakpoint location
-              let idealLocation = {
-                columnNumber: lastPossibleBreakpoint.columnNumber - 5,
-                lineNumber: 0,
-                scriptId: scriptId
-              }
-
-              console.log("FOUND IDEAL BREAKPOINT (END OF IIFE):")
-              console.log(idealLocation)
-
-              // set breakpoint at ideal location
-              chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.setBreakpoint', {
-                location: idealLocation
-              }, function(result) {
-                console.log("BREAKPOINT SET")
-                console.log(result)
-              })
-            })
             */
         }
+
         // If debugger was paused, then the breakpoint was hit
         if(message == 'Debugger.paused') {
           let breakpointId = params.hitBreakpoints[0]
-          console.log("BREAKPOINT HIT:")
+          console.log("Breakpoint hit:")
           console.log(breakpointId)
-          console.log("IIFE CALL FRAME OBJECT ID:")
+          console.log("IIFE Call frame OBJECT ID:")
           console.log(params.callFrames[0].scopeChain[0].object.objectId)
           
           // Call a custom function on call stack
@@ -122,35 +128,38 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
             functionDeclaration: 'function() { document.this = this; }',
             returnByValue: false
           }, function(result) {
-            console.log("CREATED DOCUMENT.THIS WITHIN CALLFRAME")
+            console.log("Created document.this within callframe")
 
             // Resume debugger
             chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.resume', {}, function(result) {
-              console.log("RESUMING SCRIPT")
+              console.log("Resuming script")
 
               // Remove breakpoint
               chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.removeBreakpoint', {
                 breakpointId: breakpointId
               }, function(result) {
-                console.log("BREAKPOINT REMOVED")
+                console.log("Breakpoint removed")
 
                 // Disable debugger
                 chrome.debugger.sendCommand({tabId: genTabId}, 'Debugger.disable', {}, function(result) {
-                  console.log("DEBUGER DISABLED")
+                  console.log("Debugger disabled")
 
                   // Detach debugger
                   chrome.debugger.detach({tabId: genTabId}, function() {
-                    console.log('DEBUGER DETACHED');
+                    console.log('Debugger detached');
 
                     // Remove eventListener
                     chrome.debugger.onEvent.removeListener(handleEvent);
                     console.log("Event handler removed")
+
+                    console.log("Finished!")
                   });
                 });
               });
             });
           });
         }
+        
       }
 
       chrome.debugger.onEvent.addListener(handleEvent)
